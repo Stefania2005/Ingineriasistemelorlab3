@@ -1,7 +1,7 @@
 import java.security.SecureRandom;
 
 public class StringRandomizer {
-    private static final String CHARACTERS = "ABCDEFGH";
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTU";
     private static final SecureRandom random = new SecureRandom();
 
     public static String getRandomString(int length) {
