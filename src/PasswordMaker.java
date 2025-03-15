@@ -8,8 +8,8 @@ public class PasswordMaker {
     private static int instanceAccessCount = 0;
 
     static {
-        MAGIC_NUMBER = new SecureRandom().nextInt(6) + 5; // Random between 5 and 10
-        instance = new PasswordMaker("default"); // Singleton instance initialized in static block
+        MAGIC_NUMBER = new SecureRandom().nextInt(6) + 5;
+        instance = new PasswordMaker("default");
     }
 
     private PasswordMaker(String name) {
@@ -31,9 +31,10 @@ public class PasswordMaker {
 
     public String getPassword() {
         String randomPart1 = StringRandomizer.getRandomString(MAGIC_NUMBER);
-        String randomPart2 = getRandomSubstring(magicString, 10);
+        int randomLength = new SecureRandom().nextInt(6) + 5; // Valoare între 5 și 10
+        String randomPart2 = getRandomSubstring(magicString, randomLength);
         String nameLength = String.valueOf(name.length());
-        int randomNumber = new SecureRandom().nextInt(51); // Random between 0 and 50
+        int randomNumber = new SecureRandom().nextInt(51);
 
         return randomPart1 + randomPart2 + nameLength + randomNumber;
     }
