@@ -1,3 +1,5 @@
+package lab3;
+
 import java.security.SecureRandom;
 
 public class PasswordMaker {
