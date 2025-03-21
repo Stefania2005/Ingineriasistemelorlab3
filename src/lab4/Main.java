@@ -8,7 +8,6 @@ public class Main {
         List<Integer> y = new ArrayList<>();
         List<Integer> xPlusY = new ArrayList<>(); //a
         Set<Integer> zSet = new TreeSet<>(); //b
-        List<Integer> xMinusY = new ArrayList<>();//c
         int p = 4;
         List<Integer> xPlusYLimitedByP = new ArrayList<>();
 
@@ -41,7 +40,8 @@ public class Main {
         System.out.println("zSet: " + zSet);
 
         // c) xMinusY - conține valorile din x care nu sunt în y
-        xMinusY.addAll(x);
+        //c
+        List<Integer> xMinusY = new ArrayList<>(x);
         xMinusY.removeAll(y);
         System.out.println("xMinusY: " + xMinusY);
 
