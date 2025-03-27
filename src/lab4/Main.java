@@ -4,7 +4,8 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> x = new ArrayList<>();
+        //exercitiul 1
+       /*   List<Integer> x = new ArrayList<>();
         List<Integer> y = new ArrayList<>();
         List<Integer> xPlusY = new ArrayList<>(); //a
         Set<Integer> zSet = new TreeSet<>(); //b
@@ -51,6 +52,49 @@ public class Main {
                 xPlusYLimitedByP.add(num);
             }
         }
-        System.out.println("xPlusYLimitedByP: " + xPlusYLimitedByP);
+        System.out.println("xPlusYLimitedByP: " + xPlusYLimitedByP);*/
+
+        //exercitiul 2
+
+       /* List<Student> studenti = new ArrayList<>();
+        Random rand = new Random();
+
+        studenti.add(new Student("Popescu Andrei", "A1"));
+        studenti.add(new Student("Ionescu Maria", "B1"));
+        studenti.add(new Student("Georgescu Mihai", "A1"));
+        studenti.add(new Student("Dumitru Elena", "C1"));
+        studenti.add(new Student("Vasilescu Ioana", "B1"));
+
+
+        for (Student s : studenti) {
+            for (int i = 0; i < 5; i++) {
+                s.adaugaNota(rand.nextInt(7) + 4);
+            }
+        }
+
+        studenti.sort(new ByGroupComparator());
+        System.out.println("\nSortare alfabetică pe grupe:");
+        studenti.forEach(System.out::println);
+
+        List<Student> integralisti = new ArrayList<>();
+        List<Student> restantieri = new ArrayList<>();
+        for (Student s : studenti) {
+            if (s.esteIntegralist()) {
+                integralisti.add(s);
+            } else {
+                restantieri.add(s);
+            }
+        }
+
+
+        integralisti.sort(new ByGradesComparator());
+        System.out.println("\nIntegraliști (sortați descrescător după medie):");
+        integralisti.forEach(System.out::println);
+
+
+        restantieri.sort(new ByRestanteComparator());
+        System.out.println("\nRestanțieri (sortați crescător după numărul de restanțe):");
+        restantieri.forEach(System.out::println);
+*/
     }
 }
