@@ -1,9 +1,15 @@
 package lab4;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Main {
-    public static void main(String[] args) {
+   // public static void main(String[] args) {
         //exercitiul 1
        /*   List<Integer> x = new ArrayList<>();
         List<Integer> y = new ArrayList<>();
@@ -56,45 +62,104 @@ public class Main {
 
         //exercitiul 2
 
-       /* List<Student> studenti = new ArrayList<>();
-        Random rand = new Random();
+//       List<Student> studenti = new ArrayList<>();
+//        Random rand = new Random();
+//
+//        studenti.add(new Student("Popescu Andrei", "A1"));
+//        studenti.add(new Student("Ionescu Maria", "B1"));
+//        studenti.add(new Student("Georgescu Mihai", "A1"));
+//        studenti.add(new Student("Dumitru Elena", "C1"));
+//        studenti.add(new Student("Vasilescu Ioana", "B1"));
+//
+//
+//        for (Student s : studenti) {
+//            for (int i = 0; i < 5; i++) {
+//                s.adaugaNota(rand.nextInt(7) + 4);
+//            }
+//        }
+//
+//        studenti.sort(new ByGroupComparator());
+//        System.out.println("\nSortare alfabetică pe grupe:");
+//        studenti.forEach(System.out::println);
+//
+//        List<Student> integralisti = new ArrayList<>();
+//        List<Student> restantieri = new ArrayList<>();
+//        for (Student s : studenti) {
+//            if (s.esteIntegralist()) {
+//                integralisti.add(s);
+//            } else {
+//                restantieri.add(s);
+//            }
+//        }
+//
+//
+//        integralisti.sort(new ByGradesComparator());
+//        System.out.println("\nIntegraliști (sortați descrescător după medie):");
+//        integralisti.forEach(System.out::println);
+//
+//
+//        restantieri.sort(new ByRestanteComparator());
+//        System.out.println("\nRestanțieri (sortați crescător după numărul de restanțe):");
+//        restantieri.forEach(System.out::println);
 
-        studenti.add(new Student("Popescu Andrei", "A1"));
-        studenti.add(new Student("Ionescu Maria", "B1"));
-        studenti.add(new Student("Georgescu Mihai", "A1"));
-        studenti.add(new Student("Dumitru Elena", "C1"));
-        studenti.add(new Student("Vasilescu Ioana", "B1"));
+
+        //ex 3
 
 
-        for (Student s : studenti) {
-            for (int i = 0; i < 5; i++) {
-                s.adaugaNota(rand.nextInt(7) + 4);
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
+
+    public static void main(String[] args) {
+        processElevi();
+    }
+
+    private static void processElevi() {
+        List<Elevi> elevi = new ArrayList<>();
+        Map<Elevi, Integer> eleviMap = new HashMap<>();
+        String fileName = "input.txt";
+
+        try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(" ");
+                if (parts.length < 4) continue;
+
+                String nume = parts[0];
+                String prenume = parts[1];
+                String grupa = parts[2];
+                List<Integer> note = Arrays.stream(Arrays.copyOfRange(parts, 3, parts.length))
+                        .map(Integer::parseInt)
+                        .collect(Collectors.toList());
+
+                Elevi elev = new Elevi(nume, prenume, grupa, note);
+                elevi.add(elev);
+                eleviMap.put(elev, eleviMap.getOrDefault(elev, 0) + 1); // Count occurrences of the student
             }
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Eroare la citirea fisierului", e);
         }
 
-        studenti.sort(new ByGroupComparator());
-        System.out.println("\nSortare alfabetică pe grupe:");
-        studenti.forEach(System.out::println);
 
-        List<Student> integralisti = new ArrayList<>();
-        List<Student> restantieri = new ArrayList<>();
-        for (Student s : studenti) {
-            if (s.esteIntegralist()) {
-                integralisti.add(s);
-            } else {
-                restantieri.add(s);
-            }
-        }
+        System.out.println("Sortare alfabetică pe grupe:");
+        elevi.stream()
+                .sorted(Comparator.comparing(Elevi::getGrupa)
+                        .thenComparing(e -> e.getNume() + " " + e.getPrenume()))
+                .forEach(System.out::println);
 
 
-        integralisti.sort(new ByGradesComparator());
-        System.out.println("\nIntegraliști (sortați descrescător după medie):");
-        integralisti.forEach(System.out::println);
+        System.out.println("\nIntegraliști (descrescător după medie):");
+        elevi.stream().filter(e -> e.getRestante() == 0)
+                .sorted(Comparator.comparingDouble(Elevi::getMedie).reversed())
+                .forEach(System.out::println);
 
 
-        restantieri.sort(new ByRestanteComparator());
-        System.out.println("\nRestanțieri (sortați crescător după numărul de restanțe):");
-        restantieri.forEach(System.out::println);
-*/
+        System.out.println("\nRestanțieri (crescător după nr. de restanțe):");
+        elevi.stream().filter(e -> e.getRestante() > 0)
+                .sorted(Comparator.comparingLong(Elevi::getRestante))
+                .forEach(System.out::println);
+
+        System.out.println("\nNumărul de apariții pentru fiecare elev:");
+        eleviMap.forEach((elev, count) -> System.out.println(elev + " -> " + count));
     }
 }
+
+
