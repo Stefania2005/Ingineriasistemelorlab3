@@ -18,9 +18,13 @@ public class DoubleCalculator extends ACalculator{
         return this;
     }
     public DoubleCalculator divide(double a){
+        if (a == 0.0) {
+            throw new ArithmeticException("Cannot divide by zero");
+        }
         state = (double) state / a;
         return this;
     }
+
 
     @Override
     public DoubleCalculator init() {
